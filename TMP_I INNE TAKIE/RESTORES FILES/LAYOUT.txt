@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Gra </title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet"href="~/css/site.css" />
+    </environment>
+
+    <environment exlude="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" 
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.min.css"  asp-append-verstion="true"/>
+    </environment>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only"> Przelacz </span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"> Gra </a>
+            </div>
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li> <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"> Strona Glowna</a> </li>
+                    <li> <a asp-area="" asp-controller="Home" asp-action="About" class="navbar-brand"> O Aplikacji</a> </li>
+                    <li> <a asp-area="" asp-controller="Home" asp-action="Contact" class="navbar-brand"> Kontakt </a> </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2020 - Gra </p>
+        </footer>
+    </div>
+
+    <enviroment include="Development">
+
+    </enviroment>
+    <enviroment exclude="Development">
+
+    </enviroment>
+
+</body>
+</html>

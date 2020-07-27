@@ -1,0 +1,28 @@
+[
+  {
+    "outputFileName": "css/site.min.css",
+    "inputFiles": [
+      "css/site.css"
+    ]
+  },
+  {
+    "outputFileName": "js/site.js",
+    "inputFiles": [
+      "app/js/jscriptAlert.js",
+      "app/js/jscriptsInterval.js"
+    ],
+    "sourceMap": true,
+    "includeInProject": true
+  },
+  {
+    "outputFileName": "js/site.min.js",
+    "inputFiles": [
+      "js/site.js"
+    ],
+    "manify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

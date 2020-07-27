@@ -1,0 +1,22 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+@{
+    var email = Context.Session.GetString("email");
+}
+    <table>
+        @for (int rows = 0; rows < 3; rows++)
+        {
+            <tr style="height: 150px;"></tr>
+            @for (int columns = 0; columns < 3; columns++)
+            {
+                <td style="width: 150px; border: 1px solid #808080">
+                    @{ 
+                        <i class="glyphicon glyphicon-unchecked" style="width:100%;height:100%"></i>
+                    }
+                </td>
+            }
+        }
+    </table>
+    <div class="alert">
+        <i class="glyphicon glyphicon-alert">Czekaj..</i>
+    </div>

@@ -1,0 +1,196 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Gra </title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </environment>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap-4.5.0/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+
+    <environment exlude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap-4.5.0/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only"
+              asp-fallback-test-property="position"
+              asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-verstion="true" />
+    </environment>
+</head>
+
+<body onload="updateClock(); setInterval('updateClock()', 1000 )">
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only"> Przelacz </span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"> Gra </a>
+            </div>
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li> <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"> Strona Glowna </a> </li>
+                    <li> <a asp-area="" asp-controller="Home" asp-action="Table" class="navbar-brand"> Tabela Wynikow </a> </li>
+                    <li> <a asp-area="" asp-controller="About" asp-action="About" class="navbar-brand"> O Aplikacji </a> </li>
+                    <li> <a asp-area="" asp-controller="Home" asp-action="Contact" class="navbar-brand"> Kontakt </a> </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Ustawienia
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu multi-level">
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Wybierz jezyk (@ViewBag.Language)
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li @(ViewBag.Language == "EN" ? "active" : "")>
+                                        <a asp-controller="Home" asp-action="SetCulture" asp-route-cilture="EN"> Angielski </a>
+                                    </li>
+                                    <li @(ViewBag.Language == "PL" ? "active" : "")>
+                                        <a asp-controller="Home" asp-action="SetCulture" asp-route-cilture="PL"> Polski </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+                <ul>
+                    <li class="right" style="float: right;" id="clock">
+                        <a id="clock" href="#" style="color:aliceblue;"> </a>
+                        <script type="text/javascript">
+                            function updateClock() {
+                                var currentTime = new Date();
+
+                                var currentHours = currentTime.getHours();
+                                var currentMinutes = currentTime.getMinutes();
+                                var currentSeconds = currentTime.getSeconds();
+
+                                // Pad the minutes and seconds with leading zeros, if required
+                                currentMinutes = (currentMinutes < 10 ? "0" : "") + currentMinutes;
+                                currentSeconds = (currentSeconds < 10 ? "0" : "") + currentSeconds;
+
+                                // Choose either "AM" or "PM" as appropriate
+                                var timeOfDay = (currentHours < 12) ? "AM" : "PM";
+
+                                // Convert the hours component to 12-hour format if needed
+                                currentHours = (currentHours > 12) ? currentHours - 12 : currentHours;
+
+                                // Convert an hours component of "0" to "12"
+                                currentHours = (currentHours == 0) ? 12 : currentHours;
+
+                                // Compose the string for display
+                                var currentTimeString = currentHours + ":" + currentMinutes + ":" + currentSeconds + " " + timeOfDay;
+
+                                // Update the time display
+                                document.getElementById("clock").style.color = "white";
+                                document.getElementById("clock").style.fontSize = "x-large";
+                                document.getElementById("clock").setAttribute("align", "center");
+
+                                document.getElementById("clock").firstChild.nodeValue = currentTimeString;
+                            }
+                        </script>
+
+                    </li>
+                </ul>
+
+                <script type="text/javascript">
+                    $(function () {
+                        var d = new Date()
+                        var offsetms = d.getTimezoneOffset() * 60 * 1000;
+                        $('.UTCTime').each(function () {
+                            try {
+                                var text = $(this).html();
+
+                                var n = new Date(text);
+                                n = new Date(n.valueOf() - offsetms);
+
+                                $(this).html(n.toDateString() + " " + n.toLocaleTimeString());
+
+                                $(this).attr("Converted from UTC " + text);
+                            }
+                            catch (ex) {
+                                console.warn("Error converting time", ex);
+                            }
+                        });
+                    });
+                </script>
+
+                <script type="text/javascript">
+                    setInterval("settime()", 1000);
+
+                    function settime() {
+                        var dateTime = new Date();
+                        var hour = dateTime.getHours();
+                        var minute = dateTime.getMinutes();
+                        var second = dateTime.getSeconds();
+
+                        if (minute < 10)
+                            minute = "0" + minute;
+
+                        if (second < 10)
+                            second = "0" + second;
+
+                        var time = "" + hour + ":" + minute + ":" + second;
+
+                        document.getElementById("clock").value = time;
+                    }
+                </script>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2020 - Gra </p>
+        </footer>
+    </div>
+
+    <enviroment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap-4.5.0/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js"></script>
+    </enviroment>
+    <enviroment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6ptP7I94W+qzQsfRV2a+AfHIi9k8z819ggpc8X+Ytst4yBo/hH+8Fk">
+
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery&&window.jQuery.fn&&window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6ptP7I94W+qzQsfRV2a+AfHIi9k8z819ggpc8X+Ytst4yBo/hH+8Fk">
+
+        </script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </enviroment>
+    @RenderSection("Scripts", required: false)
+    <environment include="Development">
+        <script src="~/app/js/jscriptsInterval.js"></script>
+        <script src="~/app/js/jscriptAlert.js"></script>
+        <script src="~/app/js/jscriptDisplayClock.js"></script>
+    </environment>
+    <script id="__bs_script__">
+        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.10'><\/script>".replace("HOST", location.hostname));
+    </script>
+</body>
+</html>

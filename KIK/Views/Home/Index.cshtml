@@ -1,0 +1,56 @@
+﻿
+@model KIK.Model.UserModel
+@{
+    ViewData["Title"] = Localizer["Title"];
+}
+<h2>@ViewData["Title"]</h2>
+<h4> @Localizer["SubTitle"] </h4>
+<hr />
+
+<div class="row">
+    <div class="col-lg-12">
+        <h2>Gra</h2>
+        <div class="alert alert-info">
+            <p> ... </p>
+            <p> ... </p>
+            <p> ... </p>
+        </div>
+        <p>
+            <h3>
+                Zarejestruj sie <a asp-controller="UserRegistration" asp-view="Index">Tutaj</a>
+            </h3>
+        </p>
+    </div>
+</div>
+<hr />
+<h3 style="font: bold 15px" ;> Chat </h3>
+<div class="container" style="float: inherit">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-2">User</div>
+        <div class="col-4"><input type="text" id="userInput" /></div>
+    </div>
+    <div class="row">
+        <div class="col-2">Message</div>
+        <div class="col-4"><input type="text" id="messageInput" /></div>
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-6">
+            <input type="button" id="sendButton" value="Send Message" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <hr />
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <ul id="messagesList"></ul>
+    </div>
+</div>
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/signal.js"></script>
+
