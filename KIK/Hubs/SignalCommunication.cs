@@ -16,7 +16,6 @@ namespace KIK.Hubs
             await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
 
-
         public Task SendMessageToCaller(string message)
         {
             return Clients.Caller.SendAsync("ReceiveMessage", message);
